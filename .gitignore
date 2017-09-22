@@ -1,0 +1,11 @@
+*.cmd
+.idea/
+bower_components/
+**/node_modules/
+logs
+.DS_Store
+.env-dev
+.vscode
+.project
+public/resources/
+npm-debug.log

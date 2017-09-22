@@ -1,0 +1,32 @@
+.collapse {
+    overflow: hidden;
+    display: block;
+}
+
+.collapse-active {
+    transition: height 0.2s ease-out;
+}
+
+.folderTree.rc-tree li .rc-tree-node-content-wrapper {
+    display: inline;
+}
+
+
+.folderTree .rc-tree-node-selected {
+    /*background-color: #ffe6b0;*/
+    /*border: 0px #ffb951 solid;*/
+    background-color: rgb(229,229,229);
+    border: 2px rgb(229,229,229) solid;
+    opacity: 0.8;
+    /*box-shadow: 0px 0px 10px 2px rgb(0, 188, 212);*/
+}
+
+.dirtyDoc .rc-tree-title {
+    color:red;
+
+}
+
+.savedDoc .rc-tree-title {
+    color:black;
+
+}
