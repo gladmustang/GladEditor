@@ -11,7 +11,7 @@ function uploadImageCallBack(file) {
     return new Promise(
         (resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/gladmustang/multipart/imgUpload');
+            xhr.open('POST', './multipart/imgUpload');
             // xhr.setRequestHeader('Authorization', 'Client-ID XXXXX');
             const data = new FormData();
             data.append('image', file);
