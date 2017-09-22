@@ -32,3 +32,6 @@
     white-space:normal;
 }
 
+.rc-tree li span.rc-tree-switcher, .rc-tree li span.rc-tree-checkbox, .rc-tree li span.rc-tree-iconEle {
+    vertical-align: top;
+}
