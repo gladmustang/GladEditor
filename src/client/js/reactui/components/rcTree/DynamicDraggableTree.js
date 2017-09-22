@@ -390,6 +390,7 @@ class DynamicDraggableTree extends Component {
                                 <MenuItem primaryText="Rename" onClick={()=>{this.renameTreeItem(info)}}/>
                                 <MenuItem primaryText="Delete" onClick={()=>{this.deleteFolderItem(info)}}/>
                                 <MenuItem primaryText="Refresh" onClick={()=>{this.refreshFolderItem(info)}}/>
+                                <MenuItem primaryText={this.state.multiple?"Cancel Multiple Selection Mode": "Multiple Selection Mode"} onClick={this.toggleMultiple}/>
                               </Menu>
                             </MuiThemeProvider>
                         }

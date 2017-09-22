@@ -37,6 +37,9 @@ router.post('/getChildNodes', function(req, res, next) {
                     var baseFilename = path.basename(filename, ext);
                     results.push({name:baseFilename, key: path.join(clientPath, filename), isLeaf: true});
                 } else if (stats.isDirectory()) {
+                    if(filename=='.git') {
+                        return;
+                    }
                     var baseFilename = path.basename(filename);
                     results.push({name: baseFilename, key:  path.join(clientPath, filename)});
                 }
