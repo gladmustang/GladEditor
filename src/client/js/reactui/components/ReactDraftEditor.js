@@ -11,8 +11,8 @@ function uploadImageCallBack(file) {
     return new Promise(
         (resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://api.imgur.com/3/image');
-            xhr.setRequestHeader('Authorization', 'Client-ID XXXXX');
+            xhr.open('POST', '/gladmustang/multipart/imgUpload');
+            // xhr.setRequestHeader('Authorization', 'Client-ID XXXXX');
             const data = new FormData();
             data.append('image', file);
             xhr.send(data);
