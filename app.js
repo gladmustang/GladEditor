@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
+var fs = require("fs");
 require('dotenv').config();
 var env = process.env;
 
@@ -14,6 +15,10 @@ var app = express();
 
 global.rootDir = __dirname;
 global.docRoot = path.join(rootDir, env.DOC_ROOT);
+
+if(!fs.existsSync(docRoot)) {
+    fs.mkdir(docRoot);
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
