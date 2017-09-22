@@ -25,8 +25,10 @@
     color:red;
 
 }
-
-.savedDoc .rc-tree-title {
-    color:black;
-
+.rc-tree-title {
+    display:inline-block;
+    width:90%;
+    word-wrap:break-word;
+    white-space:normal;
 }
+
