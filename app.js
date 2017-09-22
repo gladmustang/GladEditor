@@ -53,6 +53,7 @@ if(env.RUN_MODEL=='development'){
 }
 
 app.use('/'+app_name, express.static(path.join(__dirname, 'public')));
+app.use('/'+app_name, express.static(path.join(__dirname, 'static')));
 
 app.get('/', function (req, res) {
     res.redirect('/' + app_name + '/');

@@ -9,7 +9,7 @@ var multipart = require('connect-multiparty');
 
 router.post('/imgUpload',  multipart(), function(req, res, next) {
     var files = req.files;
-    var imgDir = rootDir+"/public/images/";
+    var imgDir = rootDir+"/static/images/";
     var img = files.image;
     mv(img.path, path.join(imgDir, img.name), {mkdirp: true}, function(err) {
         // done. it tried fs.rename first, and then falls back to
@@ -19,7 +19,8 @@ router.post('/imgUpload',  multipart(), function(req, res, next) {
             res.json({code:1, error: err});
             return;
         }
-        res.json({ data: { link: "images/"+img.name}});
+
+        res.json({ data: { link: req.headers.referer+"images/"+img.name}});
     });
 });
 
