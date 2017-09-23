@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk'
 import App from './App';
 import { Provider } from 'react-redux'
 import reducer from "./reducers/reduxReducerRegistry"
@@ -10,7 +11,7 @@ import "../css/animate.css"
 import "../css/toastr2.1.3..min.css"
 
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 const render = () => {
     ReactDOM.render(
