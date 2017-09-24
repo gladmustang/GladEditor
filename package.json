@@ -48,6 +48,7 @@
     "draft-js": "^0.10.1",
     "draft-js-export-markdown": "^1.2.0",
     "draft-js-import-markdown": "^1.2.0",
+    "draftjs-md-converter": "^0.1.5",
     "draftjs-to-html": "^0.7.5",
     "draftjs-to-markdown": "^0.4.4",
     "express": "~4.15.2",

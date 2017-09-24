@@ -1,6 +1,7 @@
 import {findKeyInTree} from '../reactui/components/rcTree/dynamicUtils'
 import draftToHtml from 'draftjs-to-html';
 import {stateToMarkdown} from 'draft-js-export-markdown';
+import { draftjsToMd } from 'draftjs-md-converter';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import tools from '../utils/tools'
 import {success, warning, error} from '../reactui/components/Alert'
@@ -21,8 +22,8 @@ const saveDoc = props => (dispatch, getState) => {
         if(tools.fileExt(docPath)=='.html') {
             content =draftToHtml(convertToRaw(editorState.getCurrentContent()));
         } else if (tools.fileExt(docPath)=='.md'){
-            // content =draftToMarkdown(convertToRaw(editorState.getCurrentContent()));
-            content = stateToMarkdown(editorState.getCurrentContent());
+            content =draftjsToMd(convertToRaw(editorState.getCurrentContent()));
+            // content = stateToMarkdown(editorState.getCurrentContent());
         } else {
             content =draftToHtml(convertToRaw(editorState.getCurrentContent()));
         }

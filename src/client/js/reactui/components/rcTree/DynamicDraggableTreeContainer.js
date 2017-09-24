@@ -1,12 +1,13 @@
 import DynamicDraggableTree from "./DynamicDraggableTree"
 import {connect} from "react-redux"
 import htmlToDraft from 'html-to-draftjs';
-import {stateFromMarkdown} from 'draft-js-import-markdown';
+// import {stateFromMarkdown} from 'draft-js-import-markdown';
+import { mdToDraftjs } from 'draftjs-md-converter';
 import draftToHtml from 'draftjs-to-html';
 // import draftToMarkdown from 'draftjs-to-markdown';
 import {stateToMarkdown} from 'draft-js-export-markdown';
 
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { EditorState, convertToRaw, ContentState, convertFromRaw } from 'draft-js';
 import {findKeyInTree} from './dynamicUtils'
 import {success, warning, error} from '../Alert'
 import tools from "../../../utils/tools"
@@ -109,7 +110,9 @@ var mapDispatchToProps = (dispatch)=>{
                         contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                     }
                 } else if (tools.fileExt(docKey)=='.md') {
-                    contentState = stateFromMarkdown(html);
+                    // contentState = stateFromMarkdown(html);
+                    const rawData = mdToDraftjs(html);
+                    contentState = convertFromRaw(rawData);
                 } else {
                     const contentBlock = htmlToDraft(html);
                     if (contentBlock) {
