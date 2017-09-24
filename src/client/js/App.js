@@ -33,6 +33,7 @@ class App extends Component {
             height: 40,
             lineHeight: '40px',
             backgroundColor: 'black',
+            zIndex: 10
         };
         const linkStyle={
             color: 'white',
