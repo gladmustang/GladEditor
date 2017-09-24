@@ -23,9 +23,9 @@ const saveDoc = props => (dispatch, getState) => {
         if(tools.fileExt(docPath)=='.html') {
             content =draftToHtml(convertToRaw(editorState.getCurrentContent()));
         } else if (tools.fileExt(docPath)=='.md'){
-            content =draftToMarkdown(convertToRaw(editorState.getCurrentContent()));
+            // content =draftToMarkdown(convertToRaw(editorState.getCurrentContent()));
             // content = stateToMarkdown(editorState.getCurrentContent());
-            // content =toMarkdown(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+            content =toMarkdown(draftToHtml(convertToRaw(editorState.getCurrentContent())));
 
         } else {
             content =draftToHtml(convertToRaw(editorState.getCurrentContent()));
