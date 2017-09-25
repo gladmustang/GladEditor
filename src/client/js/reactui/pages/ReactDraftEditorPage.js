@@ -66,7 +66,7 @@ class ReactDraftEditorPage extends Component {
                                 <Editor/>
                             </Tab>
                             <Tab label="HTML View">
-                                <div id="htmlDisplay" dangerouslySetInnerHTML={{__html: html}}>
+                                <div style={{overflow: 'auto', height: 600}} id="htmlDisplay" dangerouslySetInnerHTML={{__html: html}}>
                                 </div>
                             </Tab>
                         </Tabs>
