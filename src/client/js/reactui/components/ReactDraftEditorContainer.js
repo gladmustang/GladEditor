@@ -1,6 +1,7 @@
 import ReactDraftEditor from "./ReactDraftEditor"
 import {connect} from "react-redux"
 import {findKeyInTree} from './rcTree/dynamicUtils'
+import {loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -12,6 +13,9 @@ var mapStateToProps = (state, ownProps)=> {
 
 var mapDispatchToProps = (dispatch)=>{
     return {
+        pasteImage: (e)=>{
+            dispatch(loadClipboardImage(e));
+        },
         onEditorStateChange: (editorState)=>{
             dispatch({
                 type: 'onEditorStateChange',

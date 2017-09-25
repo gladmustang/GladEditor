@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
 
 
 class EditorToolBar extends Component {

@@ -7,7 +7,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import {findKeyInTree} from './rcTree/dynamicUtils'
 import {success, warning, error} from './Alert'
 import tools from '../../utils/tools'
-import {saveDoc} from '../../thunkActionCreator/docsActionCreator'
+import {saveDoc, loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -21,6 +21,7 @@ var mapStateToProps = (state, ownProps)=> {
 
 var mapDispatchToProps = (dispatch)=>{
     return {
+        dispatch: dispatch,
         handleChange: (event)=>{
             dispatch({
                 type: 'changeCurrentItemName',

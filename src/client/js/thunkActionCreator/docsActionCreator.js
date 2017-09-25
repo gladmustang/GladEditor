@@ -6,6 +6,7 @@ import  toMarkdown  from 'to-markdown';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import tools from '../utils/tools'
 import {success, warning, error} from '../reactui/components/Alert'
+import { AtomicBlockUtils } from 'draft-js';
 
 
 
@@ -69,4 +70,56 @@ const saveDoc = props => (dispatch, getState) => {
 };
 
 
-export {saveDoc} ;
+const loadClipboardImage = (event)  => (dispatch, getState) => {
+    var clipboardData = event.clipboardData,
+        i = 0,
+        items, item, types;
+
+    if( clipboardData ){
+        items = clipboardData.items;
+
+        if( !items ){
+            return;
+        }
+
+        item = items[0];
+        types = clipboardData.types || [];
+
+        for( ; i < types.length; i++ ){
+            if( types[i] === 'Files' ){
+                item = items[i];
+                break;
+            }
+        }
+
+        if( item && item.kind === 'file' && item.type.match(/^image\//i) ){
+            var blob = item.getAsFile(),
+                reader = new FileReader();
+
+            reader.onload = function( e ){
+                var src=e.target.result;
+                const entityData = { src};
+                entityData.alt = 'No image found';
+                var editorState = getState().get("draftEditorReducer").get("editorState");
+                const entityKey = editorState
+                    .getCurrentContent()
+                    .createEntity('IMAGE', 'MUTABLE', entityData)
+                    .getLastCreatedEntityKey();
+                const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+                    editorState,
+                    entityKey,
+                    ' ',
+                );
+                dispatch({
+                    type: "onEditorStateChange",
+                    editorState: newEditorState
+                })
+            };
+
+            reader.readAsDataURL( blob );
+        }
+    }
+}
+
+
+export {saveDoc, loadClipboardImage} ;

@@ -27,6 +27,7 @@ function uploadImageCallBack(file) {
         }
     );
 }
+
 class ReactDraftEditor extends Component {
     constructor(props){
         super(props);
@@ -35,7 +36,7 @@ class ReactDraftEditor extends Component {
     render() {
         const {editorState, onEditorStateChange, onContentStateChange} = this.props;
         return (
-            <div>
+            <div onPaste={(e)=>{this.props.pasteImage(e)}}>
                 <Editor
                     editorState={editorState}
                     wrapperClassName="demo-wrapper"
