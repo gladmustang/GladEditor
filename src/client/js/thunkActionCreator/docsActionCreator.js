@@ -1,12 +1,15 @@
 import {findKeyInTree} from '../reactui/components/rcTree/dynamicUtils'
 import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 import {stateToMarkdown} from 'draft-js-export-markdown';
 import draftToMarkdown from 'draftjs-to-markdown';
+import { mdToDraftjs } from 'draftjs-md-converter';
 import  toMarkdown  from 'to-markdown';
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js';
 import tools from '../utils/tools'
 import {success, warning, error} from '../reactui/components/Alert'
 import { AtomicBlockUtils } from 'draft-js';
+
 
 
 
@@ -69,8 +72,46 @@ const saveDoc = props => (dispatch, getState) => {
 
 };
 
+const showContent = (content, docKey) => (dispatch, getState) => {
+    //loading previous state
+    const html = content;
+    let contentState = null;
+    if(content) {
+        if(tools.fileExt(docKey)=='.html') {
+            const contentBlock = htmlToDraft(html);
+            if (contentBlock) {
+                contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            }
+        } else if (tools.fileExt(docKey)=='.md') {
+            // contentState = stateFromMarkdown(html);
+            const rawData = mdToDraftjs(html);
+            contentState = convertFromRaw(rawData);
+        } else {
+            const contentBlock = htmlToDraft(html);
+            if (contentBlock) {
+                contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            }
+        }
+        dispatch({
+            type: 'onEditorStateChange',
+            editorState: EditorState.createWithContent(contentState)
+        });
+    } else {
+        var editorState = EditorState.createEmpty();
+        dispatch({
+            type: 'onEditorStateChange',
+            editorState: editorState
+        });
+    }
+
+}
 
 const loadClipboardImage = (event)  => (dispatch, getState) => {
+    var editorState = getState().get("draftEditorReducer").get("editorState");
+    var currentDocKey = getState().get("docsTreeReducer").get("currentDocKey");
+    var content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    dispatch(showContent(content,currentDocKey));
+    // setTimeout(dispatch(showContent(content,currentDocKey)), 500);
     var clipboardData = event.clipboardData,
         i = 0,
         items, item, types;
@@ -100,7 +141,6 @@ const loadClipboardImage = (event)  => (dispatch, getState) => {
                 var src=e.target.result;
                 const entityData = { src};
                 entityData.alt = 'No image found';
-                var editorState = getState().get("draftEditorReducer").get("editorState");
                 const entityKey = editorState
                     .getCurrentContent()
                     .createEntity('IMAGE', 'MUTABLE', entityData)
@@ -122,4 +162,4 @@ const loadClipboardImage = (event)  => (dispatch, getState) => {
 }
 
 
-export {saveDoc, loadClipboardImage} ;
+export {saveDoc, loadClipboardImage, showContent} ;

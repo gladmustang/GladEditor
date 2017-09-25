@@ -8,7 +8,7 @@ import { EditorState, convertToRaw, ContentState, convertFromRaw } from 'draft-j
 import {findKeyInTree} from './dynamicUtils'
 import {success, warning, error} from '../Alert'
 import tools from "../../../utils/tools"
-import {saveDoc} from '../../../thunkActionCreator/docsActionCreator'
+import {saveDoc, showContent} from '../../../thunkActionCreator/docsActionCreator'
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -97,36 +97,38 @@ var mapDispatchToProps = (dispatch)=>{
             })
         },
         showContent:(content, docKey)=> {
+            dispatch(showContent(content,docKey));
             //loading previous state
-            const html = content;
-            let contentState = null;
-            if(content) {
-                if(tools.fileExt(docKey)=='.html') {
-                    const contentBlock = htmlToDraft(html);
-                    if (contentBlock) {
-                        contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-                    }
-                } else if (tools.fileExt(docKey)=='.md') {
-                    // contentState = stateFromMarkdown(html);
-                    const rawData = mdToDraftjs(html);
-                    contentState = convertFromRaw(rawData);
-                } else {
-                    const contentBlock = htmlToDraft(html);
-                    if (contentBlock) {
-                        contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-                    }
-                }
-                dispatch({
-                    type: 'onEditorStateChange',
-                    editorState: EditorState.createWithContent(contentState)
-                });
-            } else {
-                var editorState = EditorState.createEmpty();
-                dispatch({
-                    type: 'onEditorStateChange',
-                    editorState: editorState
-                });
-            }
+            // const html = content;
+            // let contentState = null;
+            // if(content) {
+            //     if(tools.fileExt(docKey)=='.html') {
+            //         const contentBlock = htmlToDraft(html);
+            //         if (contentBlock) {
+            //             contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            //         }
+            //     } else if (tools.fileExt(docKey)=='.md') {
+            //         // contentState = stateFromMarkdown(html);
+            //         const rawData = mdToDraftjs(html);
+            //         contentState = convertFromRaw(rawData);
+            //     } else {
+            //         const contentBlock = htmlToDraft(html);
+            //         if (contentBlock) {
+            //             contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            //         }
+            //     }
+            //     dispatch({
+            //         type: 'onEditorStateChange',
+            //         editorState: EditorState.createWithContent(contentState)
+            //     });
+            // } else {
+            //     var editorState = EditorState.createEmpty();
+            //     dispatch({
+            //         type: 'onEditorStateChange',
+            //         editorState: editorState
+            //     });
+            // }
+
 
         },
         deleteDocs:(treeData, deleteKeys)=> {

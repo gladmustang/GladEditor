@@ -4,6 +4,7 @@ import {findKeyInTree} from './rcTree/dynamicUtils'
 import {loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
 import draftToHtml from 'draftjs-to-html';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -22,6 +23,7 @@ var mapDispatchToProps = (dispatch)=>{
         onEditorStateChange: (newEditorState,editorState, currentDocKey, treeData)=>{
             var oldContent =draftToHtml(convertToRaw(editorState.getCurrentContent()));
             var newContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
+
             if(true) {
                 var newTreeData=[...treeData];
                 findKeyInTree(newTreeData, currentDocKey, (item, index, arr) => {
