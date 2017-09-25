@@ -74,9 +74,9 @@ const saveDoc = props => (dispatch, getState) => {
 
 const showContent = (content, docKey) => (dispatch, getState) => {
     //loading previous state
-    const html = content;
     let contentState = null;
     if(content) {
+        const html = content;
         if(tools.fileExt(docKey)=='.html') {
             const contentBlock = htmlToDraft(html);
             if (contentBlock) {
@@ -84,9 +84,29 @@ const showContent = (content, docKey) => (dispatch, getState) => {
             }
         } else if (tools.fileExt(docKey)=='.md') {
             // contentState = stateFromMarkdown(html);
-            const rawData = mdToDraftjs(html);
-            contentState = convertFromRaw(rawData);
+            // const rawData = mdToDraftjs(html);
+            // contentState = convertFromRaw(rawData);
+            var md = require('markdown-it')({
+                html: true,
+                linkify: true,
+                typographer: true
+            }).use(require('markdown-it-ins'))
+                .use(require('markdown-it-emoji'))
+                .use(require('markdown-it-footnote'))
+                .use(require('markdown-it-mark'))
+                .use(require('markdown-it-abbr'))
+                .use(require('markdown-it-deflist'))
+                .use(require('markdown-it-sup'))
+                .use(require('markdown-it-sub'))
+                .use(require('markdown-it-checkbox'))
+                .use(require('markdown-it-task-lists'));
+            const html = md.render(content);
+            const contentBlock = htmlToDraft(html);
+            if (contentBlock) {
+                contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            }
         } else {
+            const html = content;
             const contentBlock = htmlToDraft(html);
             if (contentBlock) {
                 contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);

@@ -1,5 +1,5 @@
 var config = {
-    defaultExt: '.html'
+    defaultExt: '.md'
 }
 
 export default config;
