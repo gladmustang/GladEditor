@@ -35,7 +35,7 @@ class ReactDraftEditor extends Component {
     render() {
         const {editorState, onEditorStateChange, onContentStateChange} = this.props;
         return (
-            <div style={editorStyle}>
+            <div>
                 <Editor
                     editorState={editorState}
                     wrapperClassName="demo-wrapper"
@@ -45,6 +45,7 @@ class ReactDraftEditor extends Component {
                     toolbar={{
                         image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: false } }
                     }}
+                    editorStyle = {editorStyle}
                 />
 
             </div>
