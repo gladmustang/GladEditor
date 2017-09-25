@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import {loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
+import {saveDoc} from '../../thunkActionCreator/docsActionCreator'
+import {handleDocNameChange} from '../../thunkActionCreator/toolBarActionCreator'
 
 
 class EditorToolBar extends Component {
@@ -14,11 +15,11 @@ class EditorToolBar extends Component {
                     <TextField style={{marginLeft: 50, minWidth: 800}}
                         hintText="Document Title"
                         value={this.props.currentItemName}
-                        onChange={this.props.handleChange}
+                        onChange={(e) => {this.props.dispatch(handleDocNameChange(e))}}
                     />
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <RaisedButton label="Save Document" primary={true} onClick={()=>{this.props.saveDoc(this.props)}}/>
+                    <RaisedButton label="Save Document" primary={true} onClick={()=>{this.props.dispatch(saveDoc(this.props))}}/>
                 </ToolbarGroup>
             </Toolbar>
         );
