@@ -61,13 +61,13 @@ class ReactDraftEditorPage extends Component {
 
                     <Paper  style={rightStyle} zDepth={1} children={
                         <Tabs>
-                            <Tab label="HTML View">
-                                <div id="htmlDisplay" dangerouslySetInnerHTML={{__html: html}}>
-                                </div>
-                            </Tab>
                             <Tab label="Edit" >
                                 <EditorToolBarContainer/>
                                 <Editor/>
+                            </Tab>
+                            <Tab label="HTML View">
+                                <div id="htmlDisplay" dangerouslySetInnerHTML={{__html: html}}>
+                                </div>
                             </Tab>
                         </Tabs>
 
