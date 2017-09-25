@@ -12,7 +12,7 @@ class EditorToolBar extends Component {
         return (
             <Toolbar style={{backgroundColor: 'white'}}>
                 <ToolbarGroup firstChild={true}>
-                    <TextField style={{marginLeft: 50, minWidth: 800}}
+                    <TextField style={{marginLeft: 50, minWidth: '200%'}}
                         hintText="Document Title"
                         value={this.props.currentItemName}
                         onChange={(e) => {this.props.dispatch(handleDocNameChange(e))}}
