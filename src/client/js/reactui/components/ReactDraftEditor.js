@@ -34,15 +34,14 @@ class ReactDraftEditor extends Component {
     }
 
     render() {
-        const {editorState, onEditorStateChange, onContentStateChange} = this.props;
+        const {editorState, onEditorStateChange} = this.props;
         return (
             <div onPaste={(e)=>{this.props.pasteImage(e)}}>
                 <Editor
                     editorState={editorState}
                     wrapperClassName="demo-wrapper"
                     editorClassName="demo-editor"
-                    onEditorStateChange={onEditorStateChange}
-                    onChange={(contentState)=>{onContentStateChange(editorState, this.props.currentDocKey, this.props.treeData)}}
+                    onEditorStateChange={(newEditorState)=>{onEditorStateChange(newEditorState, editorState, this.props.currentDocKey, this.props.treeData)}}
                     toolbar={{
                         image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: false } }
                     }}

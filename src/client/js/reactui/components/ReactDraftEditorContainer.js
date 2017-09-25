@@ -2,6 +2,8 @@ import ReactDraftEditor from "./ReactDraftEditor"
 import {connect} from "react-redux"
 import {findKeyInTree} from './rcTree/dynamicUtils'
 import {loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
+import draftToHtml from 'draftjs-to-html';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -16,21 +18,25 @@ var mapDispatchToProps = (dispatch)=>{
         pasteImage: (e)=>{
             dispatch(loadClipboardImage(e));
         },
-        onEditorStateChange: (editorState)=>{
-            dispatch({
-                type: 'onEditorStateChange',
-                editorState: editorState
-            });
-        },
-        onContentStateChange: (editorState, currentDocKey, treeData)=>{
-            var newTreeData=[...treeData];
-            findKeyInTree(newTreeData, currentDocKey, (item, index, arr) => {
-                item.className="dirtyDoc";
-            });
-            dispatch({
-                type: 'updateTreeData',
-                treeData: newTreeData
-            });
+
+        onEditorStateChange: (newEditorState,editorState, currentDocKey, treeData)=>{
+            var oldContent =draftToHtml(convertToRaw(editorState.getCurrentContent()));
+            var newContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
+            if(oldContent!=newContent) {
+                var newTreeData=[...treeData];
+                findKeyInTree(newTreeData, currentDocKey, (item, index, arr) => {
+                    item.className="dirtyDoc";
+                });
+                dispatch({
+                    type: 'updateTreeData',
+                    treeData: newTreeData
+                });
+                dispatch({
+                    type: 'onEditorStateChange',
+                    editorState: newEditorState
+                });
+            }
+
         }
     }
 }
