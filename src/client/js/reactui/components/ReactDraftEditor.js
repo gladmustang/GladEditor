@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import {tip} from "./Alert"
 
 var editorStyle={
     height: 550,
@@ -36,7 +37,19 @@ class ReactDraftEditor extends Component {
     render() {
         const {editorState, onEditorStateChange} = this.props;
         return (
-            <div onPaste={(e)=>{this.props.pasteImage(e)}}>
+            <div onPaste={(e)=>{this.props.pasteImage(e)}}
+                 onSelect = {(e)=> {
+                     var sel =  window.getSelection().toString();
+                     if(sel) {
+                         var timer = setTimeout(function () {
+                             if(window.getSelection().toString()==sel)
+                             tip(window.getSelection().toString())
+                             clearTimeout(timer);
+                         }, 1000)
+
+                     }
+
+                 }}>
                 <Editor
                     editorState={editorState}
                     wrapperClassName="demo-wrapper"

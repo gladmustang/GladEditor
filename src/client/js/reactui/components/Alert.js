@@ -9,6 +9,8 @@ var success = (successMsg)=>{
             extendedTimeOut: 3000
         });
 }
+
+
 var warning = (warnMsg)=>{
     window.msgContainer.warning(
         "",
@@ -26,19 +28,35 @@ var error = (errorMsg)=>{
         });
 }
 
+var tip = (tipMsg)=>{
+    window.tipContainer.success(
+        "",
+        tipMsg, {
+            timeOut: 5000,
+            extendedTimeOut: 5000,
+        });
+}
+
 class Alert extends Component {
     render(){
         var ToastMessageFactory = React.createFactory(ToastMessage.animation);
         return (
-            <ToastContainer  ref={(input) => {window.msgContainer = input;}}
-                             toastMessageFactory={ToastMessageFactory}
-                             className="toast-top-right"
-            />
+            <div>
+                <ToastContainer  ref={(input) => {window.msgContainer = input;}}
+                                 toastMessageFactory={ToastMessageFactory}
+                                 className="toast-top-right"
+                />
+                <ToastContainer  ref={(input) => {window.tipContainer = input;}}
+                                 toastMessageFactory={ToastMessageFactory}
+                                 className="toast-top-center"
+                />
+            </div>
+
         )
     }
 }
 
 export default Alert;
-export {success, warning, error};
+export {success, warning, error, tip};
 
 
