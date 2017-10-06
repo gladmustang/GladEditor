@@ -4,7 +4,7 @@ const defaultState = Map({
     currentItemName:"",
     currentDocKey:"",
     treeData: [
-        { name: 'Document Root', key: '\\' } //Document Root is also used in delete Folder action
+        { name: 'Document Root', key: '\\' } //Document Root is also used in delete Folder action,
     ],
     selectedKeys:[]
 });

@@ -5,6 +5,8 @@ var fs = require("fs");
 var path = require("path");
 var mv = require('mv');
 
+var file_ignore_list = [".git", ".gitignore"];
+
 
 function fileExt(filename){
     var ext = null;
@@ -31,15 +33,18 @@ router.post('/getChildNodes', function(req, res, next) {
 
         files.forEach(function(filename) {
             try {
+                if(file_ignore_list.indexOf(filename)!=-1) {
+                    return;
+                }
                 var stats = fs.statSync(path.join(filePath, filename));
                 if (stats.isFile()) {
                     var ext= fileExt(filename);
                     var baseFilename = path.basename(filename, ext);
                     results.push({name:baseFilename, key: path.join(clientPath, filename), isLeaf: true});
                 } else if (stats.isDirectory()) {
-                    if(filename=='.git') {
-                        return;
-                    }
+                    // if(file_ignore_list.indexOf(filename)!=-1) {
+                    //     return;
+                    // }
                     var baseFilename = path.basename(filename);
                     results.push({name: baseFilename, key:  path.join(clientPath, filename)});
                 }
