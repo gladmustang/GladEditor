@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {tip} from "./Alert"
+import { translate, detect, audio } from 'translation.js'
 
 var editorStyle={
     height: 550,
@@ -42,8 +43,16 @@ class ReactDraftEditor extends Component {
                      var sel =  window.getSelection().toString();
                      if(sel) {
                          var timer = setTimeout(function () {
-                             if(window.getSelection().toString()==sel)
-                             tip(window.getSelection().toString())
+                             if(window.getSelection().toString()==sel) {
+                                 tip(sel)
+                                 translate({
+                                     text: sel,
+                                     api: 'baidu'
+                                 }).then(result => {
+                                         tip(result)
+                                         console.log(result)
+                                     })
+                             }
                              clearTimeout(timer);
                          }, 1000)
 
