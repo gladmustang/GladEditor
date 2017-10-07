@@ -241,7 +241,12 @@ router.post('/dragMove', function(req, res, next) {
         dragDestPath = path.dirname(dragDestPath);
     }
     var ext = fileExt(srcPath);
-    var baseName = path.basename(srcPath, ext);
+    if(ext) {
+        var baseName = path.basename(srcPath, ext);
+    } else {
+        var baseName = path.basename(srcPath);
+    }
+
     var destPath = path.join(docRoot,dragDestPath);
     destPath = path.join(destPath, baseName);
     var destKey = path.join(dragDestPath, baseName);

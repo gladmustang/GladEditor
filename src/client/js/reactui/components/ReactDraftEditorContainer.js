@@ -24,7 +24,7 @@ var mapDispatchToProps = (dispatch)=>{
             var oldContent =draftToHtml(convertToRaw(editorState.getCurrentContent()));
             var newContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
 
-            if(true) {
+            if(oldContent!=newContent) {
                 var newTreeData=[...treeData];
                 findKeyInTree(newTreeData, currentDocKey, (item, index, arr) => {
                     item.className="dirtyDoc";
@@ -33,11 +33,11 @@ var mapDispatchToProps = (dispatch)=>{
                     type: 'updateTreeData',
                     treeData: newTreeData
                 });
-                dispatch({
-                    type: 'onEditorStateChange',
-                    editorState: newEditorState
-                });
             }
+            dispatch({
+                type: 'onEditorStateChange',
+                editorState: newEditorState
+            });
 
         }
     }
