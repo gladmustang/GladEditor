@@ -10,6 +10,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import DynamicDraggableTreeContainer from  '../components/rcTree/DynamicDraggableTreeContainer'
 import RaisedButton from 'material-ui/RaisedButton';
 import EditorToolBarContainer from '../components/EditorToolBarContainer'
+import IconButton from 'material-ui/IconButton';
 
 // const divStyle={
 //     width: "45%",
@@ -45,13 +46,20 @@ class ReactDraftEditorPage extends Component {
         const { editorState } = this.props;
         var html =draftToHtml(convertToRaw(editorState.getCurrentContent()));
         // console.log(html);
+        var title= (
+            <div>
+                Documents
+                <span style={{position: "absolute", right: 0, top: 0}}><IconButton iconClassName="fa fa-github" iconStyle={{color: 'white'}}/></span>
+
+            </div>
+        )
         return (
             <div style={{
                 marginTop: "10px"
             }}>
                 <Card style={leftStyle}>
                     <CardHeader style={{backgroundColor: 'rgb(0, 188, 212)'}}
-                        title="Documents" titleStyle={{color: 'white'}}
+                        title={title} titleStyle={{color: 'white'}}
                         // subtitle="Subtitle"
                     />
                     <CardText>
