@@ -34,6 +34,7 @@ var tip = (tipMsg)=>{
         tipMsg, {
             timeOut: 5000,
             extendedTimeOut: 5000,
+            closeButton: true
         });
 }
 

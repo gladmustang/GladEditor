@@ -5,6 +5,7 @@ import {loadClipboardImage} from '../../thunkActionCreator/docsActionCreator'
 import draftToHtml from 'draftjs-to-html';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
+import {tip} from "./Alert"
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -39,6 +40,38 @@ var mapDispatchToProps = (dispatch)=>{
                 editorState: newEditorState
             });
 
+        },
+        onTranslation: (text)=>{
+            fetch("./translator/translate",{
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({text: text})
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if(data.code==0) {
+                    let result = data.result;
+                    const msgItems = result.map((msg,index)=>
+                        <li key={index}>{msg}</li>
+                    );
+                    var msgs = (
+                        <ul>
+                            {msgItems}
+                        </ul>
+                    );
+                    tip(msgs);
+
+                } else {
+                    console.log(data.error);
+                }
+
+            }).catch(function(e) {
+                console.log(e);
+                console.log("Oops, error");
+            });
         }
     }
 }

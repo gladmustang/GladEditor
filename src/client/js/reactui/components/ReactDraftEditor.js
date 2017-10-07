@@ -36,7 +36,7 @@ class ReactDraftEditor extends Component {
     }
 
     render() {
-        const {editorState, onEditorStateChange} = this.props;
+        const {editorState, onEditorStateChange, onTranslation} = this.props;
         return (
             <div onPaste={(e)=>{this.props.pasteImage(e)}}
                  onSelect = {(e)=> {
@@ -44,14 +44,15 @@ class ReactDraftEditor extends Component {
                      if(sel) {
                          var timer = setTimeout(function () {
                              if(window.getSelection().toString()==sel) {
-                                 tip(sel)
-                                 translate({
-                                     text: sel,
-                                     api: 'baidu'
-                                 }).then(result => {
-                                         tip(result)
-                                         console.log(result)
-                                     })
+                                 // tip(sel)
+                                 // translate({
+                                 //     text: sel,
+                                 //     api: 'baidu'
+                                 // }).then(result => {
+                                 //         tip(result)
+                                 //         console.log(result)
+                                 //     })
+                                onTranslation(sel);
                              }
                              clearTimeout(timer);
                          }, 1000)

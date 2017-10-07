@@ -50,7 +50,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
-            React: 'React',
+            React: 'react',
             ReactDOM: 'react-dom'
         }),
         new HtmlWebpackPlugin({
