@@ -16,6 +16,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import config from '../../../../../config/common'
+import tools from '../../../utils/tools'
 
 
 // var menuListStyle =   {
@@ -424,12 +425,23 @@ class DynamicDraggableTree extends Component {
                     return <TreeNode title={item.name} key={item.key} className={item.className}>{loop(item.children)}</TreeNode>;
                 }
                 if(item.isLeaf) {
-                    const title=(
-                        <span>
+                    const ext = tools.fileExt(item.key);
+                    if(ext=='.html') {
+                        var title=(
+                            <span>
                             {item.name + " "}
-                            <i className="fa fa-html5" aria-hidden="true"></i>
-                        </span>
-                    );
+                                <i className="fa fa-html5" aria-hidden="true"></i>
+                            </span>
+                        );
+                    } else {
+                        var title=(
+                            <span>
+                            {item.name + " "}
+                                <i className="fa fa-meetup" aria-hidden="true"></i>
+                            </span>
+                        );
+                    }
+
                     return (
                         <TreeNode title={title} key={item.key} isLeaf={item.isLeaf} className={item.className}
                         />
