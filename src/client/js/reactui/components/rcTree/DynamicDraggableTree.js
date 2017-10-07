@@ -423,10 +423,25 @@ class DynamicDraggableTree extends Component {
                 if (item.children) {
                     return <TreeNode title={item.name} key={item.key} className={item.className}>{loop(item.children)}</TreeNode>;
                 }
-                return (
-                    <TreeNode title={item.name} key={item.key} isLeaf={item.isLeaf} className={item.className}
-                    />
-                );
+                if(item.isLeaf) {
+                    const title=(
+                        <span>
+                            {item.name + " "}
+                            <i className="fa fa-html5" aria-hidden="true"></i>
+                        </span>
+                    );
+                    return (
+                        <TreeNode title={title} key={item.key} isLeaf={item.isLeaf} className={item.className}
+                        />
+                    );
+                } else {
+                    return (
+                        <TreeNode title={item.name} key={item.key} isLeaf={item.isLeaf} className={item.className}
+                        />
+                    );
+                }
+
+
             });
         };
         const treeNodes = loop(this.props.treeData);
