@@ -43,14 +43,15 @@ class ReactDraftEditorPage extends Component {
 
 
     render() {
-        const { editorState } = this.props;
+        const { editorState, gitPush } = this.props;
         var html =draftToHtml(convertToRaw(editorState.getCurrentContent()));
         // console.log(html);
         var title= (
             <div>
                 Documents
-                <span style={{position: "absolute", right: 0, top: 0}}><IconButton iconClassName="fa fa-github" iconStyle={{color: 'white'}}/></span>
-
+                <span style={{position: "absolute", right: 0, top: 0}}>
+                    <IconButton iconClassName="fa fa-github" iconStyle={{color: 'white'}} onClick={gitPush}/>
+                </span>
             </div>
         )
         return (

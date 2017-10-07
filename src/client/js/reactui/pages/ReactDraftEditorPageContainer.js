@@ -1,5 +1,6 @@
 import ReactDraftEditorPage from "./ReactDraftEditorPage"
 import {connect} from "react-redux"
+import {success, warning, error} from '../components/Alert'
 
 var mapStateToProps = (state, ownProps)=> {
     return {
@@ -9,6 +10,28 @@ var mapStateToProps = (state, ownProps)=> {
 
 var mapDispatchToProps = (dispatch)=>{
     return {
+        gitPush: ()=>{
+            fetch("./gitOps/gitPush",{
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "GET",
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if(data.code==0) {
+                    success("Docs saved to git Success!")
+                } else {
+                    error("Docs saved to git error!")
+                    console.log(data.error);
+                }
+
+            }).catch(function(e) {
+                console.log(e);
+                console.log("Oops, error");
+            });
+        }
     }
 }
 
