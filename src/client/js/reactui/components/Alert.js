@@ -29,7 +29,7 @@ var error = (errorMsg)=>{
 }
 
 var tip = (tipMsg)=>{
-    window.tipContainer.success(
+    window.tipContainer.info(
         "",
         tipMsg, {
             timeOut: 5000,
