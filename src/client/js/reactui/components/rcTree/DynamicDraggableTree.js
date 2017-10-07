@@ -231,7 +231,7 @@ class DynamicDraggableTree extends Component {
         }
     }
 
-    addChildItem = (info) => {
+    addChildItem = (info, ext) => {
         this._removeContainer();
         const parentKey = info.node.props.eventKey;
 
@@ -239,7 +239,11 @@ class DynamicDraggableTree extends Component {
         var docKey=null;
         findKeyInTree(data, parentKey, (item, index, arr) => {
             var suffix = Math.round(Math.random()*10000);
-            docKey =  item.key + "\\NewDoc"+suffix+config.defaultExt;
+            if(ext) {
+                docKey =  item.key + "\\NewDoc"+suffix+ext;
+            } else {
+                docKey =  item.key + "\\NewDoc"+suffix+config.defaultExt;
+            }
             item.children.push(
                 {name:"NewDoc"+suffix, key: docKey, isLeaf: true, className: 'dirtyDoc'}
             );
@@ -386,7 +390,8 @@ class DynamicDraggableTree extends Component {
                         overlay={
                             <MuiThemeProvider>
                               <Menu>
-                                <MenuItem primaryText="Add a new document" onClick={()=>{this.addChildItem(info)}}/>
+                                <MenuItem primaryText="Add a new md document" onClick={()=>{this.addChildItem(info, '.md')}}/>
+                                <MenuItem primaryText="Add a new html document" onClick={()=>{this.addChildItem(info, '.html')}}/>
                                 <MenuItem primaryText="Add a new folder" onClick={()=>{this.addChildFolder(info)}}/>
                                 <MenuItem primaryText="Rename" onClick={()=>{this.renameTreeItem(info)}}/>
                                 <MenuItem primaryText="Delete" onClick={()=>{this.deleteFolderItem(info)}}/>
