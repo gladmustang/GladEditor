@@ -21,7 +21,7 @@ var mapDispatchToProps = (dispatch)=>{
                 return response.json();
             }).then(function(data) {
                 if(data.code==0) {
-                    success(data.msg);
+                    success("Save docs to git success!");
                     console.log(data.msg);
                 } else {
                     error(data.error);
