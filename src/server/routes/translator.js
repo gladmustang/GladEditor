@@ -11,7 +11,7 @@ router.post('/translate', function(req, res, next) {
     }).then(result => {
             var msg = result.dict? result.dict: result.result;
             res.json({code:0, result: msg});
-            console.log(result)
+            // console.log(result)
     }).catch(error => {
         // code 可能有下面几个值：
         // NETWORK_ERROR - 网络错误，可能是运行环境没有网络连接造成的
